@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Я знаю о тебе всё</title>
+<style type="text/css">
+	body{
+		font: 15px Segoe UI;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+  ip = (JSON.parse(JSON.stringify(data, null, 2))['ip']);
+  $("#ip").text("IP: "+ip);
+  $.getJSON('https://json.geoiplookup.io/'+ip, function(data) {
+  data= (JSON.parse(JSON.stringify(data, null, 2)));
+$("#city").text("Город: "+data['city']);
+$("#district").text("Область(?): "+data['district']);
+$("#isp").text("Провайдер: "+data['isp']);
+$("#addr").html("Полный адрес: "+data['continent_name']+" - "+data['country_name']+", "+data['region']+". "+data['city']+". Индекс(если есть): "+data['postal_code']+"; <a href=\"https://www.google.com/maps/@"+data['latitude']+","+data['longitude']+",16z\">Широта/долгота: "+data['latitude']+","+data['longitude']+"</a>");
+$("#asn").text("Автономная сеть провайдера(ASN): "+data['asn']);
+$("#connection").text("Тип соединения(корпоративный,домашний, другое): "+data['connection_type']);
+$("#currency").text("Валюта: "+data['currency_name']);
+$("#org").text("Организация в которой проведён интернет: "+data['org']);
+$("#User-Agent").text("User-Agent: "+window.navigator.userAgent);
+});
+});
+</script>
+</head>
+<body>
+	<h1>Я знаю о тебе всё</h1>
+	<h2>ну или почти</h2>
+	<article>
+		<p>Привет юзер, ты наверное перешёл по этой ссылке из тиктока или просто заинтересован - что знает о тебе интернет?</p>
+		<p>Вот что можно найти про тебя за 1 секунду.</p>
+		<li id="ip">IP: </li>
+		<li id="city">Город: </li>
+		<li id="district">Область(?): </li>
+		<li id="isp">Провайдер: </li>
+		<li id="addr">Полный адрес: </li>
+		<li id="asn">Автономная сеть провайдера(ASN): </li>
+		<li id="connection">Тип соединения(корпоративный,домашний, другое): </li>
+		<li id="currency">Валюта: </li>
+		<li id="org">Организация в которой проведён интернет: </li>
+		<li id="User-Agent">User-Agent: </li>
+		<h4>Данная информация не является точной на все 100% и может быть некорректна.</h4>
+		<p>И это всё собралось здесь за пару секунд. А теперь подумайте, что будет если использовать более точные API, умеющие говорить - где ТОЧНО вы живёте, ТОЧНО кто вы такой, чем вы пользуетесь и так далее? А это возможно.</p>
+		<p>Не верите? Я написал этот скрипт используя гугл и минимальные знания JS<b> за 15 минут(а точнее - 12 минут).</b>Я всё сказал.</p>
+	</article>
+</body>
+</html>
